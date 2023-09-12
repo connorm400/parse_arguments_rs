@@ -21,12 +21,13 @@ type Err<T> = ParseArgumentError<<T as FromStr>::Err>;
 ///  **_Make sure your argument / value does not have spaces. At least currently, it will not work._**
 /// 
 /// # Errors
-/// * None if the argument isn't used
+/// * None if the argument isn't used by the end user
 /// 
 /// * `Some(Err(ParseArgumentError::BadLen))` if there the vector from splitting the argument by 
-///   the `=` sign's length isn't 2 (as in key and value).
+///   the `=` sign's length isn't 2 (as in key and value). That also means you can't have equal signs in 
+///   your arguments.
 /// 
-/// * Some(Err(ParseArgumentError::ParseError(ParseError))) if parsing the value doesn't work out
+/// * `Some(Err(ParseArgumentError::ParseError(ParseError)))` if parsing the value doesn't work out
 /// 
 /// # Example
 /// 
