@@ -2,7 +2,8 @@
 //!Easy way to deal with parsing commandline arguments
 //!
 //!Can be used with any type that implements FromStr (for parsing).
-//!Use `parse_argument()` function to find a value for a specified key (flag). Look at the examples for an idea of how to use it. 
+//!Use `parse_argument()` function to find a value for a specified key (flag). 
+//! Look at the [examples](https://github.com/connorm400/parse_arguments_rs/tree/main/examples) for an idea of how to use it. 
 //!It works for arguments that look like this: 
 //!
 //!```bash
