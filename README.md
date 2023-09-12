@@ -11,9 +11,9 @@ It works for arguments that look like this:
 And to retrieve those values you would write:
 ```rust
 // assuming you made an Setting enum that implemented FromStr trait
-let _ = parse_argument<Setting>("option").unwrap().unwrap();
-let _ = parse_argument<i32>("num").unwrap().unwrap();
-let _ = parse_argument<String>("hello").unwrap().unwrap();
+let _ = parse_argument::<Setting>("option").unwrap().unwrap();
+let _ = parse_argument::<i32>("num").unwrap().unwrap();
+let _ = parse_argument::<String>("hello").unwrap().unwrap();
 ```
 
 Run `cargo doc --open` to see the documentation.
