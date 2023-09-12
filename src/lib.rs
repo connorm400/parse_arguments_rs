@@ -18,7 +18,7 @@ type Err<T> = ParseArgumentError<<T as FromStr>::Err>;
 /// 
 /// Usefull for adding extra runtime settings to a cli application.
 /// 
-///  **_Make sure your argument / value do not have spaces. At least currently, it will not work._**
+///  **_Make sure your argument / value does not have spaces. At least currently, it will not work._**
 /// 
 /// # Errors
 /// * None if the argument isn't used
