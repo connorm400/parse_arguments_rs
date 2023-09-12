@@ -18,7 +18,7 @@
 //!
 //!Run `cargo doc --open` to see the documentation.
 //! 
-//!_Will Hopefully be on [crates.io](https://crates.io) soon  | [Github repo](https://github.com/connorm400/parse_arguments_rs/)_
+//! [crates.io link](https://crates.io/crates/parse_argument) | [Github repo](https://github.com/connorm400/parse_arguments_rs/)_
 //!
 //!## TODO
 //!* the key nor the value can have any spaces because of the nature of `std::env::args`. I will try to fix it at some point.
