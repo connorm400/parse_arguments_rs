@@ -11,7 +11,7 @@
 //!```
 //!And to retrieve those values you would write:
 //!```rust
-// assuming you made an Setting enum that implemented FromStr trait
+//! // assuming you made an Setting enum that implemented FromStr trait
 //!let _ = parse_argument::<Setting>("setting").unwrap().unwrap();
 //!let _ = parse_argument::<i32>("num").unwrap().unwrap();
 //!let _ = parse_argument::<String>("hello").unwrap().unwrap();
@@ -77,6 +77,41 @@ where T: FromStr {
         })
 }
 
+use std::collections::HashMap;
+/// Returns commandline arguments in a hashmap (T and E are Strings). 
+/// 
+/// To be a part of the hashmap, the argument must have this formatting:
+/// 
+/// ```bash
+/// ./rust_code --argument=true --hello=foo --num=42
+/// ```
+/// And you could access these by doing this in rust: 
+/// ```
+/// let arguments = args_to_hashmap();
+/// println!("{arguments:?}");
+/// //will return {"argument": "true", "hello": "foo", "num": "42"}
+/// ```
+pub fn args_to_hashmap() -> HashMap<String, String> {
+    let mut args_vec: Vec<Option<[String; 2]>> = vec![];
+    for arg in args() {
+        args_vec.push(arg.strip_prefix("--").and_then(|a| {
+            let split_a: Vec<String> = a.split("=").map(|x| x.to_owned()).collect();
+            if split_a.len() != 2 {
+                None
+            } else {
+                Some([split_a[0].clone(), split_a[1].clone()])
+            }
+        }));
+    }
+
+    let mut map = HashMap::new();
+    for element in args_vec {
+        if let Some(split) = element {
+            map.entry(split[0].clone()).or_insert(split[1].clone());
+        }
+    }
+    map
+}
 
 // its not very possible to test parse_argument<T> since its basically just a procedure
 // that analyzes a side effect of sorts.
