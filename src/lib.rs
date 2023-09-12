@@ -12,7 +12,7 @@
 //!And to retrieve those values you would write:
 //!```rust
 // assuming you made an Setting enum that implemented FromStr trait
-//!let _ = parse_argument::<Setting>("option").unwrap().unwrap();
+//!let _ = parse_argument::<Setting>("setting").unwrap().unwrap();
 //!let _ = parse_argument::<i32>("num").unwrap().unwrap();
 //!let _ = parse_argument::<String>("hello").unwrap().unwrap();
 //!```
