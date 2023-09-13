@@ -98,10 +98,9 @@ pub fn args_to_hashmap() -> HashMap<String, String> {
     for arg in args() {
         args_vec.push(arg.strip_prefix("--").and_then(|a| {
             let split_a: Vec<String> = a.split("=").map(|x| x.to_owned()).collect();
-            if split_a.len() != 2 {
-                None
-            } else {
-                Some([split_a[0].clone(), split_a[1].clone()])
+            match split_a.len() {
+                2 => Some([split_a[0].clone(), split_a[1].clone()]),
+                _ => None
             }
         }));
     }
