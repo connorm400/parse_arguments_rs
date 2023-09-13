@@ -11,19 +11,21 @@
 //!```
 //!And to retrieve those values you would write:
 //!```rust
-//! // assuming you made an Setting enum that implemented FromStr trait
+//! // assuming you made a Setting enum that implemented FromStr trait
 //!let _ = parse_argument::<Setting>("setting").unwrap().unwrap();
 //!let _ = parse_argument::<i32>("num").unwrap().unwrap();
 //!let _ = parse_argument::<String>("hello").unwrap().unwrap();
 //!```
 //!
+//! Alternativelly, you can convert the arguments into a hashmap:
+//! ```
+//! let _ = args_to_hashmap();
+//! // would, in this example, look like {"num": "42", "hello": "world", "setting": "foo"}
+//! ```
 //!Run `cargo doc --open` to see the documentation.
 //! 
 //! _[crates.io link](https://crates.io/crates/parse_argument) | [Github repo](https://github.com/connorm400/parse_arguments_rs/)_
 //!
-//!## TODO
-//!* the key nor the value can have any spaces because of the nature of `std::env::args`. I will try to fix it at some point.
-//!* Make a function that returns a hashmap of all the arguments with their key and value
 
 use std::env::args;
 use std::str::FromStr;
