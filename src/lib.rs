@@ -20,7 +20,7 @@
 //! Alternativelly, you can convert the arguments into a hashmap:
 //! ```
 //! let _ = args_to_hashmap();
-//! // would, in this example, look like {"num": "42", "hello": "world", "setting": "foo"}
+//! // which would, in this example, look like {"num": "42", "hello": "world", "setting": "foo"}
 //! ```
 //!Run `cargo doc --open` to see the documentation.
 //! 
@@ -71,10 +71,9 @@ where T: FromStr {
     args().find(|x| x.contains(format!("--{flag}=").as_str()))
         .and_then(|x| {
             let split_vec: Vec<&str> = x.split("=").collect();
-            if split_vec.len() != 2 {
-                Some(Err(ParseArgumentError::BadLen))
-            } else {
-                Some(split_vec.get(1).unwrap().parse::<T>().map_err(|e| ParseArgumentError::ParseError(e)))
+            match split_vec.len() {
+                2 => Some(split_vec.get(1).unwrap().parse::<T>().map_err(|e| ParseArgumentError::ParseError(e))),
+                _ => Some(Err(ParseArgumentError::BadLen))
             }
         })
 }
@@ -94,22 +93,15 @@ use std::collections::HashMap;
 /// //will return {"argument": "true", "hello": "foo", "num": "42"}
 /// ```
 pub fn args_to_hashmap() -> HashMap<String, String> {
-    let mut args_vec: Vec<Option<[String; 2]>> = vec![];
+    let mut map = HashMap::new();
     for arg in args() {
-        args_vec.push(arg.strip_prefix("--").and_then(|a| {
+        arg.strip_prefix("--").and_then(|a| {
             let split_a: Vec<String> = a.split("=").map(|x| x.to_owned()).collect();
             match split_a.len() {
-                2 => Some([split_a[0].clone(), split_a[1].clone()]),
+                2 => Some(map.entry(split_a[0].clone()).or_insert(split_a[1].clone())),
                 _ => None
             }
-        }));
-    }
-
-    let mut map = HashMap::new();
-    for element in args_vec {
-        if let Some(split) = element {
-            map.entry(split[0].clone()).or_insert(split[1].clone());
-        }
+        });
     }
     map
 }

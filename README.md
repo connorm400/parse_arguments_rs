@@ -6,4 +6,4 @@ Documentation on [docs.rs](https://docs.rs/parse_argument/0.1.3/parse_argument/)
 
 ## TODO
 * the key nor the value can have any spaces because of the nature of `std::env::args`. I will try to fix it at some point.
-* the hashmap function clones strings which could be more efficient - maybe with string slices
+* ~~the hashmap function clones strings which could be more efficient - maybe with string slices~~ the function would own whatever `std::env::Args` returns, so using an `&str`, or even a `&'static str` would result in a dangling pointer. Afaik, using string slices wouldn't be possible in rust.
