@@ -72,7 +72,7 @@ where T: FromStr {
         .and_then(|x| {
             let split_vec: Vec<&str> = x.split("=").collect();
             match split_vec.len() {
-                2 => Some(split_vec.get(1).unwrap().parse::<T>().map_err(|e| ParseArgumentError::ParseError(e))),
+                2 => Some(split_vec[1].parse::<T>().map_err(|e| ParseArgumentError::ParseError(e))),
                 _ => Some(Err(ParseArgumentError::BadLen))
             }
         })
@@ -96,9 +96,9 @@ pub fn args_to_hashmap() -> HashMap<String, String> {
     let mut map = HashMap::new();
     for arg in args() {
         arg.strip_prefix("--").and_then(|a| {
-            let split_a: Vec<String> = a.split("=").map(|x| x.to_owned()).collect();
+            let split_a: Vec<&str> = a.split("=").collect();
             match split_a.len() {
-                2 => Some(map.entry(split_a[0].clone()).or_insert(split_a[1].clone())),
+                2 => Some(map.entry(split_a[0].to_owned()).or_insert(split_a[1].to_owned())),
                 _ => None
             }
         });
