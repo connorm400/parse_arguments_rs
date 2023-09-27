@@ -75,7 +75,7 @@ use std::collections::HashMap;
 pub fn args_to_hashmap() -> HashMap<String, String> {
     let mut map = HashMap::new();
     for arg in args() {
-        arg.strip_prefix("--").and_then(|a| {
+        let _ = arg.strip_prefix("--").and_then(|a| {
             let split_a: Vec<&str> = a.split("=").collect();
             match split_a.len() {
                 2 => Some(map.entry(split_a[0].to_owned()).or_insert(split_a[1].to_owned())),
