@@ -1,4 +1,4 @@
-//! How I'd really recommend using parse_argument with a match statement rather than combinators
+//! How I'd recommend using parse_argument if you don't like combinators
 
 use parse_argument::parse_argument;
 
